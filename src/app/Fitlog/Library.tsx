@@ -1,10 +1,21 @@
-
-import WorkoutCard from "../components/WorkoutCard";
+import LibraryGrid from "../components/LibraryGrid";
+import localExercises from "@/data/exercises.json";
 import type { Exercise } from "@/types";
 
+async function getExercises(): Promise<Exercise[]> {
+  try {
+    const res = await fetch("https://api.abcz.workers.dev/api/fitlog", {
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) throw new Error(`API request failed: ${res.status}`);
+    return res.json();
+  } catch {
+    return localExercises as Exercise[];
+  }
+}
+
 async function Library() {
-  const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
-  const exercises: Exercise[] = await res.json();
+  const exercises = await getExercises();
 
   return (
     <section id="library" className="max-w-7xl mx-auto px-6 py-16">
@@ -15,11 +26,7 @@ async function Library() {
         Twelve lifts covering every major muscle group.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {exercises.map((exercise) => (
-          <WorkoutCard key={exercise.id} exercise={exercise} />
-        ))}
-      </div>
+      <LibraryGrid exercises={exercises} />
     </section>
   );
 }
