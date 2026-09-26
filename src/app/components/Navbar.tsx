@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { usePlan } from "@/context/PlanContext";
 
 const navLinks = [
   { label: "Workouts", href: "/workouts" },
@@ -12,6 +13,7 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { plan, saved } = usePlan();
 
   return (
     <header className="sticky top-0 z-50 bg-[#0a0a0a] border-b border-white/10">
@@ -47,13 +49,13 @@ export default function Navbar() {
           <Link href="/my-plan" className="flex items-center gap-2">
             <span className="text-sm font-medium text-blue-400">Plan</span>
             <span className="flex items-center justify-center w-5 h-5 text-xs font-bold text-black bg-[#ccff00] rounded-full">
-              0
+              {plan.length}
             </span>
           </Link>
           <Link href="/my-plan" className="flex items-center gap-2">
             <span className="text-sm font-medium text-gray-400">Saved</span>
             <span className="flex items-center justify-center w-5 h-5 text-xs font-bold text-gray-300 border border-gray-500 rounded-full">
-              0
+              {saved.length}
             </span>
           </Link>
         </div>
@@ -121,7 +123,7 @@ export default function Navbar() {
             >
               <span className="text-sm font-medium text-blue-400">Plan</span>
               <span className="flex items-center justify-center w-5 h-5 text-xs font-bold text-black bg-[#ccff00] rounded-full">
-                0
+                {plan.length}
               </span>
             </Link>
             <Link
@@ -131,7 +133,7 @@ export default function Navbar() {
             >
               <span className="text-sm font-medium text-gray-400">Saved</span>
               <span className="flex items-center justify-center w-5 h-5 text-xs font-bold text-gray-300 border border-gray-500 rounded-full">
-                0
+                {saved.length}
               </span>
             </Link>
           </div>
