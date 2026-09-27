@@ -37,7 +37,7 @@ export default function MyPlanPage() {
       </p>
 
       {/* Metrics summary — always reflects Today's Plan */}
-      <div className="grid grid-cols-3 gap-4 mt-8 bg-[#141519] border border-white/10 rounded-xl p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 bg-[#141519] border border-white/10 rounded-xl p-6">
         <div>
           <p className="text-gray-400 text-xs uppercase">Exercises</p>
           <p className="text-[#ccff00] text-2xl font-bold mt-1">{plan.length}</p>
@@ -149,7 +149,7 @@ function WorkoutRow({
   onMarkDone: () => void;
 }) {
   return (
-    <div className="flex items-center gap-4 bg-[#141519] border border-white/10 rounded-xl p-4">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#141519] border border-white/10 rounded-xl p-4">
       <img
         src={`https://picsum.photos/seed/${exercise.id}/80/80`}
         alt={exercise.name}
@@ -176,7 +176,7 @@ function WorkoutRow({
         </div>
       </div>
 
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center gap-2 shrink-0 flex-wrap">
         <Link
           href={`/workouts/${exercise.id}`}
           className="text-xs font-semibold border border-white/20 text-white px-4 py-2 rounded-lg whitespace-nowrap hover:bg-white/5"

@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FitLog
+
+A dark, no-nonsense gym companion — browse a library of workouts, build your own daily training plan, save lifts for later, and track your progress as you go.
+
+## Description
+
+FitLog helps you cut through workout-planning clutter. Pick a lift, lock it into today's plan, and watch the week's work add up. Built with Next.js and a live workout API (with local fallback data for reliability), it's a fast, mobile-friendly training log with zero sign-up required — everything is saved right in your browser.
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) (App Router) — React framework with server-side data fetching and file-based routing
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) — utility-first styling
+- [react-toastify](https://fkhadra.github.io/react-toastify/) — toast notifications
+- [Lucide](https://lucide.dev/) — icon library
+
+## Key Features
+
+1. **Workout Library** — Browse a full library of exercises pulled from a live API, each with equipment, difficulty, duration, calories, and rating at a glance.
+2. **Detailed Workout Pages** — Every workout has its own detail page with step-by-step instructions, a key-specs panel, and category tags.
+3. **Build Your Own Plan** — Add any workout to "Today's Plan" or save it for later with one click — duplicate additions are blocked with a clear warning toast.
+4. **My Plan Dashboard** — Track exercises, total minutes, and total calories for the day, switch between Today's Plan and Saved tabs, mark lifts as done, and remove items — all state persists across page reloads.
+5. **Fully Responsive Dark UI** — A sticky navbar with live Plan/Saved counters, a mobile hamburger menu, and layouts that adapt cleanly from phone to desktop.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Install dependencies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Create functional applications
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Run the development server
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. Created localhost server
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

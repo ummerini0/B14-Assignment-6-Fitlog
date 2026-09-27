@@ -16,20 +16,28 @@ type PlanContextType = {
 
 const PlanContext = createContext<PlanContextType | undefined>(undefined);
 
-function loadFromStorage<T>(key: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
-  try {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
 export function PlanProvider({ children }: { children: React.ReactNode }) {
-  const [plan, setPlan] = useState<Exercise[]>(() => loadFromStorage("fitlog-plan", []));
-  const [saved, setSaved] = useState<Exercise[]>(() => loadFromStorage("fitlog-saved", []));
-  const [doneIds, setDoneIds] = useState<number[]>(() => loadFromStorage("fitlog-done", []));
+  const [plan, setPlan] = useState<Exercise[]>([]);
+  const [saved, setSaved] = useState<Exercise[]>([]);
+  const [doneIds, setDoneIds] = useState<number[]>([]);
+
+  // Load from localStorage only after mounting, so server and client
+  // render the same empty state first (avoids hydration mismatch).
+  useEffect(() => {
+    try {
+      const storedPlan = localStorage.getItem("fitlog-plan");
+      const storedSaved = localStorage.getItem("fitlog-saved");
+      const storedDone = localStorage.getItem("fitlog-done");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (storedPlan) setPlan(JSON.parse(storedPlan));
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (storedSaved) setSaved(JSON.parse(storedSaved));
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (storedDone) setDoneIds(JSON.parse(storedDone));
+    } catch {
+      // ignore malformed localStorage data
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("fitlog-plan", JSON.stringify(plan));
