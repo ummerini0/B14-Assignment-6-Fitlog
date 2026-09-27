@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={oswald.variable}>
-      <body className="bg-[#0a0a0a] text-white">
+      <body className="bg-[#0a0a0a] text-white pb-16 min-h-screen">
         <PlanProvider>
           <Navbar />
           {children}

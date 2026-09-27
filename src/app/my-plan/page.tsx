@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Clock, Flame, Star, X, ChevronDown } from "lucide-react";
+import { Clock, Flame, Star, X, ChevronDown, Check } from "lucide-react";
 import { usePlan } from "@/context/PlanContext";
 import type { Exercise } from "@/types";
 import { toast } from "react-toastify";
@@ -193,7 +193,7 @@ function WorkoutRow({
       : "bg-[#ccff00] text-black"
   }`}
 >
-  
+  <Check className="w-3.5 h-3.5" />
   {isDone ? "Done" : "Mark as Done"}
 </button>
         )}

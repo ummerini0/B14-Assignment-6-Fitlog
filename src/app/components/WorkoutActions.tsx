@@ -5,14 +5,22 @@ import { usePlan } from "@/context/PlanContext";
 import type { Exercise } from "@/types";
 
 export default function WorkoutActions({ exercise }: { exercise: Exercise }) {
-  const { addToPlan, addToSaved } = usePlan();
+  const { plan, saved, addToPlan, addToSaved } = usePlan();
 
   const handleAddToPlan = () => {
+    if (plan.some((e) => e.id === exercise.id)) {
+      toast.error("Already in your plan");
+      return;
+    }
     addToPlan(exercise);
     toast.success("Added to today's plan");
   };
 
   const handleSave = () => {
+    if (saved.some((e) => e.id === exercise.id)) {
+      toast.error("Already saved");
+      return;
+    }
     addToSaved(exercise);
     toast.success("Saved for later");
   };

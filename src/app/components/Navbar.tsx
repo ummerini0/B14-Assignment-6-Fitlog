@@ -1,19 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { usePlan } from "@/context/PlanContext";
 
 const navLinks = [
-  { label: "Workouts", href: "/workouts" },
-  { label: "My Plan", href: "/plan" },
+  { label: "Workouts", href: "/#library" },
+  { label: "My Plan", href: "/my-plan" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hash, setHash] = useState("");
   const { plan, saved } = usePlan();
+
+  useEffect(() => {
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  setHash(window.location.hash);
+  const handleHashChange = () => setHash(window.location.hash);
+  window.addEventListener("hashchange", handleHashChange);
+  return () => window.removeEventListener("hashchange", handleHashChange);
+}, []);
+
+  const isLinkActive = (href: string) => {
+    if (href.includes("#")) {
+      const [path, hashPart] = href.split("#");
+      return pathname === (path || "/") && hash === `#${hashPart}`;
+    }
+    return pathname === href;
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-[#0a0a0a] border-b border-white/10">
@@ -26,11 +43,12 @@ export default function Navbar() {
         {/* Desktop nav links */}
         <ul className="hidden md:flex items-center gap-2">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = isLinkActive(link.href);
             return (
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  onClick={() => setHash(link.href.includes("#") ? `#${link.href.split("#")[1]}` : "")}
                   className={`text-sm font-medium px-4 py-1.5 rounded-full transition-colors ${
                     isActive
                       ? "bg-[#2a3a1a] text-[#ccff00]"
@@ -96,12 +114,15 @@ export default function Navbar() {
         <div className="md:hidden border-t border-white/10 px-6 py-4 space-y-4">
           <ul className="flex flex-col gap-2">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = isLinkActive(link.href);
               return (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setHash(link.href.includes("#") ? `#${link.href.split("#")[1]}` : "");
+                    }}
                     className={`block text-sm font-medium px-4 py-2 rounded-full transition-colors ${
                       isActive
                         ? "bg-[#2a3a1a] text-[#ccff00]"
